@@ -1,0 +1,18 @@
+import pandas as pd
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.impute import SimpleImputer
+
+df = pd.read_csv('your_dataset.csv')
+
+imputer = SimpleImputer(strategy='mean')
+df['column_name'] = imputer.fit_transform(df[['column_name']])
+
+label_encoder = LabelEncoder()
+df['categorical_column'] = label_encoder.fit_transform(df['categorical_column'])
+
+scaler = StandardScaler()
+df[['numerical_column1', 'numerical_column2']] = scaler.fit_transform(df[['numerical_column1', 'numerical_column2']])
+
+df = df.drop_duplicates()
+
+df.to_csv('cleaned_data.csv', index=False)
